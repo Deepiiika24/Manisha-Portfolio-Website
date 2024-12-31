@@ -9,7 +9,6 @@
 
     <!-- =====BOX ICONS===== -->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
     <title>Portfolio website complete</title>
 </head>
@@ -254,7 +253,6 @@
         <!--===== CONTACT =====-->
         <section class="contact section" id="contact">
             <h2 class="section-title">Contact</h2>
-
             <div class="contact__container bd-grid">
                 <form id="contact-form" class="contact__form">
                     <input type="text" placeholder="Name" id="name" class="contact__input" required>
@@ -265,6 +263,7 @@
                 </form>
             </div>
         </section>
+
     </main>
 
     <!--===== FOOTER =====-->
@@ -285,36 +284,38 @@
     <!--===== MAIN JS =====-->
     <script src="assets/js/main.js"></script>
 
+    <!-- Email js  -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
     <script>
-        // Wait for the DOM to be fully loaded before running the script
-        document.addEventListener("DOMContentLoaded", function () {
-            emailjs.init("YPHt3VtC2JVXb7PUe");
+        // Initialize EmailJS with your user ID (public key)
+        (function () {
+            emailjs.init("YPHt3VtC2JVXb7PUe"); // Replace with your EmailJS public key (User ID)
+        })();
 
-            // Add event listener after the DOM is ready
-            document.getElementById("contact-form").addEventListener("submit", function (event) {
-                event.preventDefault();
+        // Get the form and elements
+        const contactForm = document.getElementById('contact-form');
 
-                const serviceID = "service_2orm85t";
-                const templateID = "template_ij7h24r";
+        // Add event listener to the form
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
 
-                const formData = {
-                    user_name: document.getElementById("name").value,
-                    user_email: document.getElementById("email").value,
-                    message: document.getElementById("message").value,
-                };
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
 
-                // Send the email via EmailJS
-                emailjs.send(serviceID, templateID, formData)
-                    .then(() => {
-                        alert("Your message has been sent successfully!");
-                        document.getElementById("contact-form").reset();
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
-                        alert("Failed to send your message. Please try again.");
-                    });
-            });
+            // Send email using EmailJS
+            emailjs.sendForm('service_2orm85t', 'template_ij7h24r', this)
+                .then(function (response) {
+                    alert('Message sent successfully!');
+                }, function (error) {
+                    alert('Failed to send message: ' + error.text);
+                });
+
+            // Clear the form fields after submission
+            contactForm.reset();
         });
+
     </script>
 
 </body>
