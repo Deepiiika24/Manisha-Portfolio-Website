@@ -534,3 +534,11 @@ margin-bottom: 20px;
   margin-top: 30px;
 }
 }
+@media (max-width:500px){
+  .home__img {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    width: 260px;
+  }
+}
