@@ -103,7 +103,8 @@
             <div class="skills__container bd-grid">
                 <div>
                     <h2 class="skills__subtitle">Profesional Skills</h2>
-                    <p class="skills__text">Skilled in frontend development with expertise in HTML5, CSS3, JavaScript, and React.js. Proficient in creating responsive designs and user-friendly interfaces.</p>
+                    <p class="skills__text">Skilled in frontend development with expertise in HTML5, CSS3, JavaScript,
+                        and React.js. Proficient in creating responsive designs and user-friendly interfaces.</p>
                     <div class="skills__data">
                         <div class="skills__names">
                             <i class='bx bxl-html5 skills__icon'></i>
@@ -272,7 +273,7 @@
             <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
             <a href="#" class="footer__icon"><i class='bx bxl-twitter'></i></a>
         </div>
-        <p class="footer__copy">&#169; Bedimcode. All rigths reserved</p>
+        <p class="footer__copy">&#169; 2024. All rights reserved</p>
     </footer>
 
 
@@ -283,38 +284,39 @@
     <script src="assets/js/main.js"></script>
 
     <!-- Email js  -->
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    // Initialize EmailJS
+    emailjs.init("YPHt3VtC2JVXb7PUe"); // Replace with your actual public key
 
-    <script>
-        // Initialize EmailJS with your user ID (public key)
-        (function () {
-            emailjs.init("YPHt3VtC2JVXb7PUe"); // Replace with your EmailJS public key (User ID)
-        })();
+    document.getElementById("contact-form").addEventListener("submit", function (event) {
+        event.preventDefault();
 
-        // Get the form and elements
-        const contactForm = document.getElementById('contact-form');
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
 
-        // Add event listener to the form
-        contactForm.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the default form submission
+        if (!name || !email || !message) {
+            alert("Please fill out all fields.");
+            return;
+        }
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+        emailjs.send("service_2orm85t", "template_eaizjli", {
+            user_name: name,
+            user_email: email,
+            message: message,
+        })
+            .then((response) => {
+                alert("Message sent successfully!");
+                console.log("SUCCESS:", response);
+            })
+            .catch((error) => {
+                alert("Failed to send the message. Please try again.");
+                console.error("ERROR:", error);
+            });
+    });
+</script>
 
-            // Send email using EmailJS
-            emailjs.sendForm('service_2orm85t', 'template_ij7h24r', this)
-                .then(function (response) {
-                    alert('Message sent successfully!');
-                }, function (error) {
-                    alert('Failed to send message: ' + error.text);
-                });
-
-            // Clear the form fields after submission
-            contactForm.reset();
-        });
-
-    </script>
 
 </body>
 
